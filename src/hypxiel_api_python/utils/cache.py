@@ -10,7 +10,8 @@ async def purge_cache(hypixel_api: HypixelAPI, *, force=False) -> None:
     It purges the cache of old data
 
     :param hypixel_api: The HypixelAPI object
-    :param force: If set to True, it will purge the entire cache. If set to False, it will purge the cache of old data, defaults to False (optional)
+    :param force: If set to True, it will purge the entire cache. If set to False, it will purge the cache of old data,
+    defaults to False (optional)
     :return: None
     """
     """Purges the cache of old data"""

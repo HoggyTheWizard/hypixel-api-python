@@ -7,7 +7,7 @@ from src.hypxiel_api_python.hypixel import HypixelAPI
 async def get(
         hypixel_api: HypixelAPI,
         endpoint: str,
-        params: dict[str, str] = {"", ""},
+        params: dict[str, str],
         *,
         nocache: bool = False,
         expiration_time: int = 60,
@@ -17,15 +17,10 @@ async def get(
     Otherwise, return the cached object
 
     :param hypixel_api: The HypixelAPI object
-    :type hypixel_api: HypixelAPI
     :param endpoint: The endpoint you want to fetch data from
-    :type endpoint: str
     :param params: The parameters to send to the API
-    :type params: dict[str, str]
     :param nocache: Whether to bypass the cache
-    :type nocache: bool
     :param expiration_time: The time in seconds after which the cache will expire, defaults to 60
-    :type expiration_time: int
     :return: A dictionary containing the response from the Hypixel API.
     """
 
@@ -62,9 +57,9 @@ async def fetch(
     :type headers: dict[str, str]
     :return: A dictionary containing the response from the Hypixel API.
     """
-    HYPIXEL_API_URL = "https://api.hypixel.net"
+    hypixel_api_url = "https://api.hypixel.net"
 
-    async with ClientSession(HYPIXEL_API_URL, headers=headers) as session:
+    async with ClientSession(hypixel_api_url, headers=headers) as session:
         async with session.get(endpoint, params=params) as request:
             ratelimit_info = {x: y for x, y in request.headers.items() if x.startswith("RateLimit-")}
             # ratelimit
