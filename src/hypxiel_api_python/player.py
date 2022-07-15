@@ -1,5 +1,8 @@
 from src.hypxiel_api_python.utils.requests import get
+from src.hypxiel_api_python.guild import HypixelGuild
 from math import sqrt
+
+# SUPPORT FOR NAMES NEEDS TO BE ADDED.
 
 
 class HypixelPlayer:
@@ -36,3 +39,6 @@ class HypixelPlayer:
             return friends["records"]
         else:
             return None
+
+    async def guild(self, uuid: str) -> dict or None:
+        return HypixelGuild(hypixel_api=self.hypixel_api, params={"uuid", uuid})
