@@ -7,7 +7,7 @@ from src.hypxiel_api_python.hypixel import HypixelAPI
 async def get(
         hypixel_api: HypixelAPI,
         endpoint: str,
-        params: dict[str, str] = {"", ""},
+        params: dict[str: str] = {},
         nocache: bool = False,
         expiration_time: int = 60,
         ) -> dict:
@@ -41,8 +41,8 @@ async def get(
 async def fetch(
         hypixel_api: HypixelAPI,
         endpoint: str,
-        params: dict[str, str],
-        headers: dict[str, str],
+        params: dict[str: str],
+        headers: dict[str: str],
         ) -> dict:
     """
     Fetches data from the Hypixel API and returns it as a dictionary
