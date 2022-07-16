@@ -8,4 +8,5 @@ class HypixelAPI:
         self.key = key
         self.path = "https://api.hypixel.net/"
         self.request_cache = {}
+        self.users = {}
         self.ratelimit_info = {}
