@@ -11,48 +11,27 @@ class HypixelGuild:
             params: dict[str: str] = {}
     ):
         self.guild = await get(hypixel_api=hypixel_api, endpoint="guild", params=params)["guild"]
-
-    async def raw(self) -> dict:
-        return self.guild
-
-    async def info(self):
-        return {
+        self.raw = self.guild
+        self.members = HypixelGuildMembers(hypixel_guild=self.guild)
+        self.ranks = self.guild["ranks"]
+        self.game_gxp = self.guild["guildExpByGameType"]
+        self.tag = self.guild["tag"]
+        self.achievements = self.guild["achievements"]
+        self.info = {
             "name": self.guild["name"],
             "description": self.guild.get("description"),
             "id": self.guild["_id"],
             "created": self.guild["created"],
         }
-
-    async def members(self):
-        return HypixelGuildMembers(hypixel_guild=self.guild)
-
-    async def ranks(self):
-        return self.guild["ranks"]
-
-    async def game_gxp(self):
-        return self.guild["guildExpByGameType"]
-
-    async def tag(self):
-        return {
-            "name": self.guild.get("tag"),
-            "color": self.guild.get("tagColor")
-        }
-
-    async def settings(self):
-        return {
+        self.settings = {
             "joinable": self.guild.get("joinable"),
             "publiclyListed": self.guild.get("publiclyListed"),
         }
-
-    async def legacy(self):
-        return {
+        self.legacy = {
             "legacyRanking": self.guild.get("legacyRanking"),
             "coins": self.guild.get("coins", 0),
             "coinsEver": self.guild.get("coinsEver", 0),
         }
-
-    async def achievements(self):
-        return self.guild["achievements"]
 
 
 class HypixelGuildMembers:
