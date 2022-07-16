@@ -12,6 +12,7 @@ class HypixelGuild:
     ):
         self.guild = await get(hypixel_api=hypixel_api, endpoint="guild", params=params)["guild"]
         self.raw = self.guild
+        self.guildmaster = HypixelGuildMembers(hypixel_guild=self.guild).get_guildmaster()
         self.members = HypixelGuildMembers(hypixel_guild=self.guild)
         self.ranks = self.guild["ranks"]
         self.game_gxp = self.guild["guildExpByGameType"]
@@ -67,3 +68,8 @@ class HypixelGuildMembers:
 
     async def members_with_guild_rank(self, guild_rank: str):
         return [member for member in self.members if member["rank"] == guild_rank]
+
+    async def get_guildmaster(self):
+        for member in self.members:
+            if member["rank"] == "GUILDMASTER":
+                return member
